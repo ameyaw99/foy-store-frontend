@@ -85,17 +85,7 @@ const CartMenu = () => {
                       </IconButton>
                     </FlexBox>
                     <Typography>
-                      {item.shortDescription.map(
-                        (paragraph, paragraphIndex) => (
-                          <p key={paragraphIndex}>
-                            {paragraph.children.map(
-                              (textSegment, textIndex) => (
-                                <span key={textIndex}>{textSegment.text}</span>
-                              )
-                            )}
-                          </p>
-                        )
-                      )}
+                      <div>{item?.shortDescription}</div>
                     </Typography>
                     <FlexBox m="15px 0">
                       <Box
