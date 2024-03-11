@@ -28,9 +28,10 @@ const Item = ({ item, width }) => {
           onMouseOut={() => setIsHovered(false)}
         >
           <img
+            className="image-container"
             alt={item.name}
-            width="300px"
-            height="400px"
+            width="100px"
+            height="200px"
             src={item.image}
             onClick={() => navigate(`/item/${item.id}`)}
             style={{ cursor: "pointer" }}
