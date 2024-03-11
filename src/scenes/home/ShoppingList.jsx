@@ -38,10 +38,13 @@ const ShoppingList = () => {
 
   return (
     <Box width="80%" margin="80px auto">
+      <div className="logo-">
+        <img src="" alt="" />
+      </div>
       <Typography variant="h3" textAlign="center">
-        Our Featured <b>Products</b>
+        {/* Our Featured <b>Products</b> */}
       </Typography>
-      <Tabs
+      {/* <Tabs
         textColor="primary"
         indicatorColor="primary"
         value={value}
@@ -59,13 +62,13 @@ const ShoppingList = () => {
         <Tab label="Tees" value="Tees" />
         <Tab label="Beanies" value="Beanies" />
         <Tab label="Caps" value="Caps" />
-      </Tabs>
+      </Tabs> */}
       <Box
         margin="0 auto"
         display="grid"
-        gridTemplateColumns="repeat(auto-fill, 300px)"
+        gridTemplateColumns="repeat(auto-fill, 100px)"
         justifyContent="space-around"
-        rowGap="20px"
+        rowGap="10px"
         columnGap="1.33%"
       >
         {value === "all" &&
