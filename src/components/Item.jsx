@@ -28,7 +28,6 @@ const Item = ({ item, width }) => {
           onMouseOut={() => setIsHovered(false)}
         >
           <img
-            className="image-container"
             alt={item.name}
             width="100px"
             height="200px"
@@ -44,7 +43,7 @@ const Item = ({ item, width }) => {
             width="100%"
             padding="0 5%"
           >
-            <Box display="flex" justifyContent="space-between">
+            {/* <Box display="flex" justifyContent="space-between">
               <Box
                 display="flex"
                 alignItems="center"
@@ -67,16 +66,16 @@ const Item = ({ item, width }) => {
               >
                 Add to Cart
               </Button>
-            </Box>
+            </Box> */}
           </Box>
         </Box>
 
         <Box mt="3px">
-          <Typography variant="subtitle2" color={neutral.dark}>
+          {/* <Typography variant="subtitle2" color={neutral.dark}>
             {category
               .replace(/([A-Z])/g, " $1")
               .replace(/^./, (str) => str.toUpperCase())}
-          </Typography>
+          </Typography> */}
           <Typography>{name}</Typography>
           <Typography fontWeight="bold">${price}</Typography>
         </Box>
