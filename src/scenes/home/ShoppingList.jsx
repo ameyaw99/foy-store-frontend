@@ -8,6 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { setItems } from "../../state";
 import Items from "../../Item";
+import logo from "../../assets/foyImages/logo.png";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -38,9 +39,22 @@ const ShoppingList = () => {
 
   return (
     <Box width="80%" margin="80px auto">
-      <div className="logo-">
-        <img src="" alt="" />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "20px",
+          marginTop: "20px",
+        }}
+      >
+        <img
+          src={logo}
+          alt="Logo"
+          style={{ maxWidth: "100px", height: "auto" }}
+        />
       </div>
+
       <Typography variant="h3" textAlign="center">
         {/* Our Featured <b>Products</b> */}
       </Typography>
