@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Item from "../../components/Item";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+// import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../../theme";
@@ -19,6 +19,7 @@ const ItemDetails = () => {
   const [count, setCount] = useState(1);
   const [item, setItem] = useState(null);
   const [items, setItems] = useState([]);
+  const [displayedImage, setDisplayedImage] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -28,6 +29,7 @@ const ItemDetails = () => {
   const getItem = (itemId) => {
     const selectedItem = Items.find((item) => item.id === itemId);
     setItem(selectedItem);
+    setDisplayedImage(selectedItem?.image); // Set the initially displayed image
   };
 
   // Function to simulate fetching all items
@@ -40,33 +42,66 @@ const ItemDetails = () => {
     getItems();
   }, [itemId]); // Add itemId to the dependency array if needed
 
+  const handleImageClick = (image) => {
+    setDisplayedImage(image);
+  };
+
   return (
     <Box width="80%" m="80px auto">
       <Box display="flex" flexWrap="wrap" columnGap="40px">
         {/* IMAGES */}
-        <Box flex="1 1 40%" mb="40px">
+        <Box
+          flex="1 1 40%"
+          mb="40px"
+          onClick={() => handleImageClick(item?.image)}
+        >
           <img
             alt={item?.name}
             width="100%"
             height="100%"
-            src={item?.image}
+            src={displayedImage}
             style={{ objectFit: "contain" }}
           />
         </Box>
 
         {/* ACTIONS */}
         <Box flex="1 1 50%" mb="40px">
-          <Box display="flex" justifyContent="space-between">
-            <Box>Home/Item</Box>
-            <Box>Prev Next</Box>
-          </Box>
-
           <Box m="65px 0 25px 0">
             <Typography variant="h3">{item?.name}</Typography>
             <Typography>${item?.price}</Typography>
             <Typography sx={{ mt: "20px" }}>
               <div>{item?.shortDescription}</div>
             </Typography>
+          </Box>
+
+          <Box flex="1 1 50%" mb="40px">
+            <Box display="flex" justifyContent="flex-start" alignItems="center">
+              {/* First Image */}
+              <Box
+                onClick={() => handleImageClick(item?.image)}
+                style={{ marginRight: "10px", cursor: "pointer" }}
+              >
+                <img
+                  src={item?.image}
+                  alt={item?.name}
+                  style={{ width: "50px", height: "50px" }}
+                />
+              </Box>
+
+              {/* Second Image */}
+              {item?.image2 && (
+                <Box
+                  onClick={() => handleImageClick(item?.image2)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <img
+                    src={item?.image2}
+                    alt={item?.name}
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                </Box>
+              )}
+            </Box>
           </Box>
 
           <Box display="flex" alignItems="center" minHeight="50px">
@@ -100,9 +135,17 @@ const ItemDetails = () => {
           </Box>
           <Box>
             <Box m="20px 0 5px 0" display="flex">
-              <FavoriteBorderOutlinedIcon />
-              <Typography sx={{ ml: "5px" }}>ADD TO WISHLIST</Typography>
+              <Typography sx={{ marginRight: "5px" }}>
+                Care Instructions:
+              </Typography>
+              <Typography sx={{ fontWeight: "bold" }}>
+                Wash With Care.
+              </Typography>
+              <Typography sx={{ fontWeight: "bold", ml: "10px" }}>
+                Place Clothing Inside Out On Low Heat If Possible
+              </Typography>
             </Box>
+
             <Typography>CATEGORIES: {item?.category}</Typography>
           </Box>
         </Box>

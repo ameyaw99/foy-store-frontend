@@ -66,10 +66,18 @@ const ShoppingList = () => {
       <Box
         margin="0 auto"
         display="grid"
-        gridTemplateColumns="repeat(auto-fill, 100px)"
+        gridTemplateColumns="repeat(auto-fill, 110px)"
         justifyContent="space-around"
         rowGap="10px"
         columnGap="1.33%"
+        // sx={{
+        //   rowGap: "20px", // Default row gap
+        //   gridTemplateColumns: "repeat(auto-fill, 110px)", // Default grid columns
+        //   "@media (min-width: 768px)": {
+        //     gridTemplateColumns: "repeat(auto-fill, 300px)", // Change grid columns for larger screens
+        //     rowGap: "10px", // Change row gap for larger screens
+        //   },
+        // }}
       >
         {value === "all" &&
           items.map((item) => (
