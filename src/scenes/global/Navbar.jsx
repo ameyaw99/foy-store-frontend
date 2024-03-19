@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Badge, Box, IconButton } from "@mui/material";
+import { Badge, Box, IconButton, Modal } from "@mui/material";
 import {
   PersonOutline,
   ShoppingBagOutlined,
@@ -8,13 +8,18 @@ import {
   SearchOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
+import Search from "../../components/Search";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Use useNavigate hook
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+  const [openSearch, setOpenSearch] = useState(false); // State for managing search component visibility
+
+  const handleSearchClick = () => {
+    setOpenSearch(true); // Open search component popup
+  };
 
   return (
     <Box
@@ -37,7 +42,8 @@ const Navbar = () => {
         alignItems="center"
       >
         <Box display="flex" alignItems="center" columnGap="20px">
-          <IconButton sx={{ color: "black" }}>
+          <IconButton sx={{ color: "black" }} onClick={handleSearchClick}>
+            {/* Add onClick event handler to search button */}
             <SearchOutlined />
           </IconButton>
           <IconButton sx={{ color: "black" }}>
@@ -71,6 +77,10 @@ const Navbar = () => {
           </IconButton>
         </Box>
       </Box>
+      {/* Search component popup */}
+      <Modal open={openSearch} onClose={() => setOpenSearch(false)}>
+        <Search />
+      </Modal>
     </Box>
   );
 };

@@ -11,7 +11,11 @@ import {
   removeFromCart,
   setIsCartOpen,
 } from "../../state";
-import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51OoTgtB0ThGnFv31xCrrR7UFQqlWTmBi8EMmqpHC4aKhCaMVSiWOnUSsdE4C6eMrEBYGVPefXpBSOOcjFh6gDuKr00kUfb0cQ8"
+);
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -20,15 +24,40 @@ const FlexBox = styled(Box)`
 `;
 
 const CartMenu = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
-  //   Modify the total price calculation
+  //Modify the total price calculation
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.price;
   }, 0);
+
+  async function makePayment(values) {
+    const stripe = await stripePromise;
+    const requestBody = {
+      products: cart.map(({ id, count }) => ({
+        id,
+        count,
+      })),
+    };
+
+    const response = await fetch(
+      "http://localhost:5000/create-checkout-session",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
+      }
+    );
+
+    const sessionData = await response.json();
+    const sessionId = sessionData.sessionId; // assuming the session ID is provided in the response
+
+    await stripe.redirectToCheckout({
+      sessionId: sessionId,
+    });
+  }
 
   return (
     <Box
@@ -134,7 +163,7 @@ const CartMenu = () => {
                 m: "20px 0",
               }}
               onClick={() => {
-                navigate("/checkout");
+                makePayment();
                 dispatch(setIsCartOpen({}));
               }}
             >
