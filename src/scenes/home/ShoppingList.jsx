@@ -22,11 +22,8 @@ const ShoppingList = () => {
   };
 
   async function getItems() {
-    // Simulate the asynchronous behavior of fetching data
-    // by using a setTimeout
-    setTimeout(() => {
-      dispatch(setItems(Items));
-    }, 1000); // Simulating a 1-second delay, adjust as needed
+    // Assuming dispatch and setItems are defined elsewhere
+    dispatch(setItems(Items));
   }
 
   useEffect(() => {
