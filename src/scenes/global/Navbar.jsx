@@ -10,15 +10,21 @@ import {
 import { useNavigate } from "react-router-dom";
 import { setIsCartOpen } from "../../state";
 import Search from "../../components/Search";
+import Sidebar from "../../components/Sidebar";
 
 const Navbar = () => {
   const navigate = useNavigate(); // Use useNavigate hook
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const [openSearch, setOpenSearch] = useState(false); // State for managing search component visibility
+  const [openSidebar, setOpenSidebar] = useState(false); // State for managing sidebar visibility
 
   const handleSearchClick = () => {
     setOpenSearch(true); // Open search component popup
+  };
+
+  const toggleSidebar = () => {
+    setOpenSidebar(!openSidebar); // Toggle sidebar visibility
   };
 
   return (
@@ -72,7 +78,8 @@ const Navbar = () => {
               <ShoppingBagOutlined />
             </IconButton>
           </Badge>
-          <IconButton sx={{ color: "black" }}>
+          <IconButton sx={{ color: "black" }} onClick={toggleSidebar}>
+            {/* Add onClick event handler to toggle sidebar */}
             <MenuOutlined />
           </IconButton>
         </Box>
@@ -81,6 +88,9 @@ const Navbar = () => {
       <Modal open={openSearch} onClose={() => setOpenSearch(false)}>
         <Search />
       </Modal>
+      {/* Sidebar */}
+      <Sidebar open={openSidebar} />{" "}
+      {/* Pass open state to Sidebar component */}
     </Box>
   );
 };
