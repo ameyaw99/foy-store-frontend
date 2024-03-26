@@ -10,6 +10,8 @@ import Confirmation from "./scenes/checkout/Confirmation";
 import About from "./components/About";
 import Terms from "./components/Terms";
 import ShippingPolicy from "./components/ShippingPolicy";
+import Sidebar from "./components/Sidebar";
+import Signin from "./scenes/auth/SignIn";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -35,6 +37,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/shipping" element={<ShippingPolicy />} />
+          <Route path="/side" element={<Sidebar />} />
+          <Route path="/signin" element={<Signin />} />
         </Routes>
         <CartMenu />
         <Footer />
