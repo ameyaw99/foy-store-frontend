@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Home from "./scenes/home/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./scenes/global/Navbar";
 import Footer from "./scenes/global/Footer";
+import Signin from "./scenes/auth/SignIn";
+import Home from "./scenes/home/Home";
 import ItemDetails from "./scenes/itemDetails/ItemDetails";
 import CartMenu from "./scenes/global/CartMenu";
 import Checkout from "./scenes/checkout/Checkout";
@@ -11,37 +11,37 @@ import About from "./components/About";
 import Terms from "./components/Terms";
 import ShippingPolicy from "./components/ShippingPolicy";
 import Sidebar from "./components/Sidebar";
-import Signin from "./scenes/auth/SignIn";
-
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
+import Contact from "./components/Contact";
+import Subscribe from "./components/Subscribe";
 
 function App() {
   return (
     <div className="app">
       <BrowserRouter>
-        <Navbar />
-        <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="item/:itemId" element={<ItemDetails />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="checkout/success" element={<Confirmation />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/shipping" element={<ShippingPolicy />} />
-          <Route path="/side" element={<Sidebar />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/subscribe" element={<Subscribe />} />
+          <Route
+            path="/*"
+            element={
+              <>
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="item/:itemId" element={<ItemDetails />} />
+                  <Route path="checkout" element={<Checkout />} />
+                  <Route path="checkout/success" element={<Confirmation />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/shipping" element={<ShippingPolicy />} />
+                  <Route path="/side" element={<Sidebar />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+                <Footer />
+                <CartMenu />
+              </>
+            }
+          />
         </Routes>
-        <CartMenu />
-        <Footer />
       </BrowserRouter>
     </div>
   );
