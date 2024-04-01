@@ -7,8 +7,8 @@ const Home = () => {
   return (
     <div>
       <ShoppingList />
-      {/* <Subscribe /> */}
-      <Subscribe1 />
+      <Subscribe />
+      {/* <Subscribe1 /> */}
     </div>
   );
 };
