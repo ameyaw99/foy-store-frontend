@@ -1,62 +1,66 @@
-import { Box, InputBase, Divider, Typography, IconButton } from "@mui/material";
-import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import logo from "../assets/foyImages/logo.png";
 
 const Subscribe = () => {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate(); // Get the navigate function
 
-  const handleSubscribe = async () => {
-    try {
-      // Assuming you have an API endpoint to handle email sending
-      const response = await fetch("YOUR_BACKEND_API_URL", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
-      if (response.ok) {
-        // Email sent successfully
-        console.log("Email sent successfully!");
-      } else {
-        // Email sending failed
-        console.error("Failed to send email.");
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Sending email to:", email);
+    // Here you would typically send the email using a backend service
+
+    // Assuming subscription is successful, navigate to home page
+    navigate("/home");
   };
 
   return (
-    <Box width="80%" margin="80px auto" textAlign="center">
-      <IconButton>
-        <MarkEmailReadOutlinedIcon fontSize="large" />
-      </IconButton>
-      <Typography variant="h3">Subscribe To Our Newsletter</Typography>
-      <Box
-        p="2px 4px"
-        m="15px auto"
-        display="flex"
-        alignItems="center"
-        width="75%"
-        backgroundColor="#F2F2F2"
-      >
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="Enter email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <Typography
-          sx={{ p: "10px", ":hover": { cursor: "pointer" } }}
-          onClick={handleSubscribe}
-        >
-          Subscribe
-        </Typography>
-      </Box>
-    </Box>
+    <div className="flex justify-center items-center pt-20 mt-20">
+      {/* Adjusted height */}
+      {/* Subscribe */}
+      <div className="max-w-xl text-center mx-auto">
+        <div className="mb-5">
+          <img
+            src={logo}
+            alt="Logo"
+            className="mx-auto mb-3"
+            style={{ maxWidth: "100px", height: "auto" }}
+          />{" "}
+          {/* Display your logo */}
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mt-5 lg:mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
+            <div className="w-full">
+              <label htmlFor="hero-input" className="sr-only">
+                Search
+              </label>
+              <input
+                type="email"
+                id="hero-input"
+                name="hero-input"
+                value={email}
+                onChange={handleEmailChange}
+                className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full sm:w-auto whitespace-nowrap py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-white hover:text-black disabled:opacity-50 disabled:pointer-events-none"
+            >
+              Subscribe
+            </button>
+          </div>
+        </form>
+      </div>
+      {/* End Subscribe */}
+    </div>
   );
 };
 

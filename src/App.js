@@ -19,14 +19,14 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path="/subscribe" element={<Subscribe />} />
+          <Route path="/" element={<Subscribe />} />
           <Route
             path="/*"
             element={
               <>
                 <Navbar />
                 <Routes>
-                  <Route path="/" element={<Home />} />
+                  <Route path="/home" element={<Home />} />
                   <Route path="item/:itemId" element={<ItemDetails />} />
                   <Route path="checkout" element={<Checkout />} />
                   <Route path="checkout/success" element={<Confirmation />} />
