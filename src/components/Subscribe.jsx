@@ -24,7 +24,7 @@ const Subscribe = () => {
       email: email,
     };
 
-    // Send email using EmailJS
+    // Send email using emailjs
     try {
       await emailjs.send(serviceId, templateId, templateParams, userId);
       console.log("Email sent successfully!");
