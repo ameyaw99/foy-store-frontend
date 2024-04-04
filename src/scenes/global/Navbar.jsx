@@ -10,21 +10,16 @@ import {
 import { useNavigate } from "react-router-dom";
 import { setIsCartOpen } from "../../state";
 import Search from "../../components/Search";
-import Sidebar from "../../components/Sidebar";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate(); // Use useNavigate hook
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const [openSearch, setOpenSearch] = useState(false); // State for managing search component visibility
-  const [openSidebar, setOpenSidebar] = useState(false); // State for managing sidebar visibility
 
   const handleSearchClick = () => {
     setOpenSearch(true); // Open search component popup
-  };
-
-  const toggleSidebar = () => {
-    setOpenSidebar(!openSidebar); // Toggle sidebar visibility
   };
 
   return (
@@ -52,9 +47,11 @@ const Navbar = () => {
             {/* Add onClick event handler to search button */}
             <SearchOutlined />
           </IconButton>
-          <IconButton sx={{ color: "black" }}>
-            <PersonOutline />
-          </IconButton>{" "}
+          <Link to="/">
+            <IconButton sx={{ color: "black" }}>
+              <PersonOutline />
+            </IconButton>
+          </Link>
         </Box>
         <Box display="flex" justifyContent="flex-end" columnGap="20px" flex="1">
           <Badge
@@ -78,19 +75,22 @@ const Navbar = () => {
               <ShoppingBagOutlined />
             </IconButton>
           </Badge>
-          <IconButton sx={{ color: "black" }} onClick={toggleSidebar}>
-            {/* Add onClick event handler to toggle sidebar */}
+          <IconButton
+            sx={{ color: "black" }}
+            onClick={() => {
+              // Scroll to the footer section
+              document
+                .getElementById("footer")
+                .scrollIntoView({ behavior: "smooth" });
+            }}
+          >
             <MenuOutlined />
           </IconButton>
         </Box>
       </Box>
-      {/* Search component popup */}
       <Modal open={openSearch} onClose={() => setOpenSearch(false)}>
         <Search />
       </Modal>
-      {/* Sidebar */}
-      <Sidebar open={openSidebar} />{" "}
-      {/* Pass open state to Sidebar component */}
     </Box>
   );
 };
