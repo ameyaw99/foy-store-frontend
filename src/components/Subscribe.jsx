@@ -1,28 +1,44 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 import logo from "../assets/foyImages/logo.png";
 
 const Subscribe = () => {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate(); // Get the navigate function
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Sending email to:", email);
-    // Here you would typically send the email using a backend service
+  const serviceId = "service_yo2uaw9"; // Replace with your EmailJS service ID
+  const templateId = "template_7mhi697"; // Replace with your EmailJS template ID
+  const userId = "jg4D5D4SI0Kdvt0a5"; // Replace with your EmailJS user ID
 
-    // Assuming subscription is successful, navigate to home page
-    navigate("/home");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Define template parameters
+    const templateParams = {
+      email: email,
+    };
+
+    // Send email using EmailJS
+    try {
+      await emailjs.send(serviceId, templateId, templateParams, userId);
+      console.log("Email sent successfully!");
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        navigate("/home");
+      }, 500);
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   };
 
   return (
-    <div className="flex justify-center items-center pt-20 mt-20">
-      {/* Adjusted height */}
-      {/* Subscribe */}
+    <div className="flex justify-center items-center h-screen">
       <div className="max-w-xl text-center mx-auto">
         <div className="mb-5">
           <img
@@ -30,8 +46,7 @@ const Subscribe = () => {
             alt="Logo"
             className="mx-auto mb-3"
             style={{ maxWidth: "100px", height: "auto" }}
-          />{" "}
-          {/* Display your logo */}
+          />
         </div>
         <form onSubmit={handleSubmit}>
           <div className="mt-5 lg:mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
@@ -59,7 +74,31 @@ const Subscribe = () => {
           </div>
         </form>
       </div>
-      {/* End Subscribe */}
+
+      {showSuccessMessage && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-100 bg-opacity-90">
+          <div className="bg-white p-6 rounded-lg">
+            <svg
+              viewBox="0 0 24 24"
+              className="text-green-600 w-16 h-16 mx-auto my-6"
+            >
+              <path
+                fill="currentColor"
+                d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z"
+              ></path>
+            </svg>
+            <div className="text-center">
+              <h3 className="md:text-2xl text-base text-gray-900 font-semibold">
+                Successfully subscribed!
+              </h3>
+              <p className="text-gray-600 my-2">
+                Thank you for subscribing to our newsletter.
+              </p>
+              <p>Have a great day!</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
