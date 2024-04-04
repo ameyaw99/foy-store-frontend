@@ -7,7 +7,7 @@ module.exports = {
     "./src/scenes/auth/SignIn.jsx",
     "./src/components/Contact.jsx",
     "./src/components/Subscribe.jsx",
-    "./src/components/Subscribe1.jsx",
+    "./src/components/Contact.jsx",
   ],
   theme: {
     extend: {},
