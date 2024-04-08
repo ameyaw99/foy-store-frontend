@@ -41,8 +41,8 @@ const Subscribe = () => {
     <div className="flex justify-center items-center h-screen bg-black ">
       {" "}
       {/* Add bg-black class */}
-      <div className="max-w-xl text-center mx-auto mt-2 pt-2">
-        <div className="mb-5">
+      <div className="max-w-xl text-center mx-auto -mt-40">
+        <div className="-mb-16">
           <img
             src={logo2}
             alt="Logo"
