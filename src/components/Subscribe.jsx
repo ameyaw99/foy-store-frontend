@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
-import logo from "../assets/foyImages/logo.png";
+import logo2 from "../assets/foyImages/logo2.png";
 
 const Subscribe = () => {
   const [email, setEmail] = useState("");
@@ -38,16 +38,19 @@ const Subscribe = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="max-w-xl text-center mx-auto">
+    <div className="flex justify-center items-center h-screen bg-black ">
+      {" "}
+      {/* Add bg-black class */}
+      <div className="max-w-xl text-center mx-auto mt-2 pt-2">
         <div className="mb-5">
           <img
-            src={logo}
+            src={logo2}
             alt="Logo"
             className="mx-auto mb-3"
-            style={{ maxWidth: "100px", height: "auto" }}
+            style={{ maxWidth: "200px", height: "auto" }} // Increase the maxWidth to make the image larger
           />
         </div>
+
         <form onSubmit={handleSubmit}>
           <div className="mt-5 lg:mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
             <div className="w-full">
@@ -60,21 +63,20 @@ const Subscribe = () => {
                 name="hero-input"
                 value={email}
                 onChange={handleEmailChange}
-                className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-black disabled:opacity-50 disabled:pointer-events-none"
                 placeholder="Enter your email"
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full sm:w-auto whitespace-nowrap py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-white hover:text-black disabled:opacity-50 disabled:pointer-events-none"
+              className="w-full sm:w-auto whitespace-nowrap py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-amber-400 disabled:opacity-50 disabled:pointer-events-none"
             >
               Subscribe
             </button>
           </div>
         </form>
       </div>
-
       {showSuccessMessage && (
         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-100 bg-opacity-90">
           <div className="bg-white p-6 rounded-lg">
