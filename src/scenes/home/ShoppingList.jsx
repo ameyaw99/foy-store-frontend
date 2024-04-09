@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setItems } from "../../state";
 import Items from "../../Item";
 import logo from "../../assets/foyImages/logo.png";
+import logod from "../../assets/foyImages/logo2(rgb).png";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -47,9 +48,10 @@ const ShoppingList = () => {
           }}
         >
           <img
-            src={logo}
+            src={logod}
             alt="Logo"
-            style={{ maxWidth: "100px", height: "auto" }}
+            style={{ maxWidth: "150px", height: "auto" }}
+            className="bg-neutral-950"
           />
         </div>
 
