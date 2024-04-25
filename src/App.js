@@ -18,8 +18,8 @@ function App() {
   return (
     <div className="app">
       <BrowserRouter>
-        <Subscribe />
-        {/* <Routes>
+        // <Subscribe />
+         <Routes>
           <Route path="/" element={<Subscribe />} />
           <Route
             path="/*"
@@ -42,7 +42,7 @@ function App() {
               </>
             }
           />
-        </Routes> */}
+        </Routes> 
       </BrowserRouter>
     </div>
   );
