@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="app">
       <BrowserRouter>
-        // <Subscribe />
+    {/*<Subscribe */}
          <Routes>
           <Route path="/" element={<Subscribe />} />
           <Route
