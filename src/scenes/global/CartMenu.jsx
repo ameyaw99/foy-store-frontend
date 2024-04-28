@@ -14,8 +14,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
-  "pk_test_51OoTgtB0ThGnFv31xCrrR7UFQqlWTmBi8EMmqpHC4aKhCaMVSiWOnUSsdE4C6eMrEBYGVPefXpBSOOcjFh6gDuKr00kUfb0cQ8"
-);
+  "pk_test_51OxX3fBZ5cGgjLpKrh9i9oHKUoGZS81mexIJqMPa8HHXVMY3bJalGhc57c0uHwEwru2AvyxxmXQWNroyO5zJ6RVc00PwAYGKcK");
 
 const FlexBox = styled(Box)`
   display: flex;
