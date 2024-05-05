@@ -12,7 +12,7 @@ import cap3Front from "./assets/foyImages/08(cap).png";
 const Items = [
   {
     id: "1",
-    name: "FOY GRAFFITI TEE",
+    name: "OVERSIZED CROP TEE",
     shortDescription: "[BLACK]",
     longDescription: " ",
     price: 30,
