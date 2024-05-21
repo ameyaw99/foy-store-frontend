@@ -1,5 +1,5 @@
-// import beanie1 from "./assets/foyImages/01(beanie).png";
-// import beanie2 from "./assets/foyImages/02(beanie).png";
+import tee3 from "./assets/foyImages/01(tee).png";
+import tee4 from "./assets/foyImages/02(tee).png";
 import cap1 from "./assets/foyImages/03(cap).png";
 import cap2 from "./assets/foyImages/04(cap).png";
 import cap3 from "./assets/foyImages/05(cap).png";
@@ -12,7 +12,7 @@ import cap3Front from "./assets/foyImages/08(cap).png";
 const Items = [
   {
     id: "1",
-    name: "FOY GRAFFITI TEE",
+    name: "OVERSIZED CROP GRAFFITI TEE",
     shortDescription: "[BLACK]",
     longDescription: " ",
     price: 30,
@@ -31,16 +31,16 @@ const Items = [
     image2: cap2Front,
     category: "Caps",
   },
-  // {
-  //   id: "3",
-  //   name: "FOY ALCATRAZ BEANIE",
-  //   shortDescription: "[BLACK & WHITE]",
-  //   longDescription: "Long description for Product 2",
-  //   price: 15,
-  //   image: beanie1,
-  //   image2: beanie1,
-  //   category: "Beanies",
-  // },
+  {
+    id: "3",
+    name: "OVERSIZED CROP GRAFFITI TEE",
+    shortDescription: "[WHITE]",
+    longDescription: "",
+    price: 30,
+    image: tee3,
+    image2: tee4,
+    category: "Beanies",
+  },
   {
     id: "4",
     name: "FOY TRUCKER HAT",
@@ -52,17 +52,6 @@ const Items = [
     image2: cap1Front,
     category: "Caps",
   },
-  // {
-  //   id: "5",
-  //   name: "FOY ALCATRAZ BEANIE",
-  //   shortDescription: "[BROWN & BEIGE]",
-  //   longDescription:
-  //     "High-quality image showcasing our alcatraz beanies in various elegant color combinations: brown and beige",
-  //   price: 15,
-  //   image: beanie2,
-  //   image2: beanie2,
-  //   category: "Beanies",
-  // },
   {
     id: "6",
     name: "FOY TRUCKER HAT",
