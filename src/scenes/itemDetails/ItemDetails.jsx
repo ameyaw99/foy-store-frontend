@@ -1,12 +1,12 @@
+import React, { useEffect, useState } from "react";
 import { Box, Button, IconButton, Typography, Tab, Tabs } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Item from "../../components/Item";
+import { useDispatch } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { addToCart } from "../../state";
-import { useDispatch } from "react-redux";
 import Items from "../../Item";
+import Item from "../../components/Item"; // Ensure this import is added
 
 const ItemDetails = () => {
   const dispatch = useDispatch();
@@ -16,19 +16,18 @@ const ItemDetails = () => {
   const [item, setItem] = useState(null);
   const [items, setItems] = useState([]);
   const [displayedImage, setDisplayedImage] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  // Function to simulate fetching a single item by ID
   const getItem = (itemId) => {
     const selectedItem = Items.find((item) => item.id === itemId);
     setItem(selectedItem);
-    setDisplayedImage(selectedItem?.image); // Set the initially displayed image
+    setDisplayedImage(selectedItem?.image);
   };
 
-  // Function to simulate fetching all items
   const getItems = () => {
     setItems(Items);
   };
@@ -36,17 +35,20 @@ const ItemDetails = () => {
   useEffect(() => {
     getItem(itemId);
     getItems();
-  }, [itemId]); // Add itemId to the dependency array if needed
+  }, [itemId]);
 
   const handleImageClick = (image) => {
     setDisplayedImage(image);
+  };
+
+  const handleSizeSelect = (size) => {
+    setSelectedSize(size);
   };
 
   return (
     <div className="bg-neutral-950 text-white -mt-5 -mb-24">
       <Box width="80%" m="80px auto">
         <Box display="flex" flexWrap="wrap" columnGap="40px">
-          {/* IMAGES */}
           <Box
             flex="1 1 40%"
             mb="40px"
@@ -61,7 +63,6 @@ const ItemDetails = () => {
             />
           </Box>
 
-          {/* ACTIONS */}
           <Box flex="1 1 50%" mb="40px">
             <Box m="65px 0 25px 0">
               <Typography variant="h3" color="white">
@@ -79,7 +80,6 @@ const ItemDetails = () => {
                 justifyContent="flex-start"
                 alignItems="center"
               >
-                {/* First Image */}
                 <Box
                   onClick={() => handleImageClick(item?.image)}
                   style={{ marginRight: "10px", cursor: "pointer" }}
@@ -91,7 +91,6 @@ const ItemDetails = () => {
                   />
                 </Box>
 
-                {/* Second Image */}
                 {item?.image2 && (
                   <Box
                     onClick={() => handleImageClick(item?.image2)}
@@ -117,7 +116,7 @@ const ItemDetails = () => {
               >
                 <IconButton
                   onClick={() => setCount(Math.max(count - 1, 0))}
-                  sx={{ color: "white" }} // Set icon color to white
+                  sx={{ color: "white" }}
                 >
                   <RemoveIcon />
                 </IconButton>
@@ -126,7 +125,7 @@ const ItemDetails = () => {
                 </Typography>
                 <IconButton
                   onClick={() => setCount(count + 1)}
-                  sx={{ color: "white" }} // Set icon color to white
+                  sx={{ color: "white" }}
                 >
                   <AddIcon />
                 </IconButton>
@@ -140,12 +139,46 @@ const ItemDetails = () => {
                   padding: "10px 40px",
                 }}
                 onClick={() =>
-                  dispatch(addToCart({ item: { ...item, count } }))
+                  dispatch(
+                    addToCart({ item: { ...item, count, size: selectedSize } })
+                  )
                 }
               >
                 ADD TO CART
               </Button>
             </Box>
+
+            {/* Available Sizes for Specific Shirts */}
+            {(item?.id === "1" || item?.id === "3") && (
+              <Box mt="20px">
+                <Typography variant="h6" color="white">
+                  Select Size:
+                </Typography>
+                <Box display="flex" gap="10px">
+                  {["M", "L"].map((size) => (
+                    <Button
+                      key={size}
+                      variant={selectedSize === size ? "contained" : "outlined"}
+                      color="primary"
+                      onClick={() => handleSizeSelect(size)}
+                      sx={{
+                        borderColor: "white",
+                        color: selectedSize === size ? "black" : "white",
+                        backgroundColor:
+                          selectedSize === size ? "white" : "transparent",
+                        "&:hover": {
+                          borderColor: "white",
+                          backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        },
+                      }}
+                    >
+                      {size}
+                    </Button>
+                  ))}
+                </Box>
+              </Box>
+            )}
+
             <Box>
               <Box m="20px 0 5px 0" display="flex">
                 <Typography sx={{ marginRight: "5px", color: "white" }}>
@@ -160,7 +193,6 @@ const ItemDetails = () => {
                   Place Clothing Inside Out On Low Heat If Possible
                 </Typography>
               </Box>
-
               <Typography color="white">
                 CATEGORIES: {item?.category}
               </Typography>
@@ -168,16 +200,15 @@ const ItemDetails = () => {
           </Box>
         </Box>
 
-        {/* INFORMATION */}
         <Box m="20px 0 ">
           <Tabs value={value} onChange={handleChange}>
             <Tab
               label="DESCRIPTION"
               value="description"
               sx={{
-                color: "white", // Set text color to white
+                color: "white",
                 "&.Mui-selected": {
-                  color: "white", // Set text color to white when tab is selected
+                  color: "white",
                 },
               }}
             />
@@ -185,9 +216,9 @@ const ItemDetails = () => {
               label="REVIEWS"
               value="reviews"
               sx={{
-                color: "white", // Set text color to white
+                color: "white",
                 "&.Mui-selected": {
-                  color: "white", // Set text color to white when tab is selected
+                  color: "white",
                 },
               }}
             />
@@ -197,11 +228,9 @@ const ItemDetails = () => {
           {value === "description" && (
             <div style={{ color: "white" }}>{item?.longDescription}</div>
           )}
-
           {value === "reviews" && <div style={{ color: "white" }}>reviews</div>}
         </Box>
 
-        {/* RELATED ITEMS */}
         <Box mt="50px" width="100%">
           <Typography variant="h3" fontWeight="bold" color="white">
             Related Products
