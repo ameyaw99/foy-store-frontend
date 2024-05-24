@@ -16,6 +16,7 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(
   "pk_live_51OxX3fBZ5cGgjLpKzuXLBkxj7FJxSKoIb0iTcSRC6lx93Ql3Gwf4V7qbrtx4mdQDb5px0c4SdVyeu4wHRf9S6LZ100QckihdS0");
 
+
 const FlexBox = styled(Box)`
   display: flex;
   justify-content: space-between;
@@ -27,12 +28,11 @@ const CartMenu = () => {
   const cart = useSelector((state) => state.cart.cart);
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
-  //Modify the total price calculation
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.price;
   }, 0);
 
-  async function makePayment(values) {
+  async function makePayment() {
     const stripe = await stripePromise;
     const requestBody = {
       products: cart.map(({ id, count }) => ({
@@ -51,7 +51,7 @@ const CartMenu = () => {
     );
 
     const sessionData = await response.json();
-    const sessionId = sessionData.sessionId; // assuming the session ID is provided in the response
+    const sessionId = sessionData.sessionId;
 
     await stripe.redirectToCheckout({
       sessionId: sessionId,
@@ -79,7 +79,6 @@ const CartMenu = () => {
         backgroundColor="white"
       >
         <Box padding="30px" overflow="auto" height="100%">
-          {/* HEADER */}
           <FlexBox mb="15px">
             <Typography variant="h3">SHOPPING BAG ({cart.length})</Typography>
             <IconButton onClick={() => dispatch(setIsCartOpen({}))}>
@@ -87,8 +86,6 @@ const CartMenu = () => {
             </IconButton>
           </FlexBox>
 
-          {/* CART LIST */}
-          {/*  Modify the rendering part */}
           <Box>
             {cart.map((item) => (
               <Box key={`${item.name}-${item.id}`}>
@@ -98,7 +95,7 @@ const CartMenu = () => {
                       alt={item.name}
                       width="123px"
                       height="164px"
-                      src={item.image} // Adjust accordingly
+                      src={item.image}
                     />
                   </Box>
                   <Box flex="1 1 60%">
@@ -114,6 +111,7 @@ const CartMenu = () => {
                     </FlexBox>
                     <Typography>
                       <div>{item?.shortDescription}</div>
+                      {item.size && <div>Size: {item.size}</div>}
                     </Typography>
                     <FlexBox m="15px 0">
                       <Box
@@ -146,7 +144,6 @@ const CartMenu = () => {
             ))}
           </Box>
 
-          {/* ACTIONS */}
           <Box m="20px 0">
             <FlexBox m="20px 0">
               <Typography fontWeight="bold">SUBTOTAL</Typography>
