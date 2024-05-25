@@ -18,19 +18,28 @@ function App() {
   return (
     <div className="app">
       <BrowserRouter>
-    {/* <Subscribe /> */}
-         <Routes>
-          <Route path="/" element={<Subscribe />} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar />
+                <Home />
+                <Footer />
+                <CartMenu />
+              </>
+            }
+          />
+          <Route path="/subscribe" element={<Subscribe />} />
           <Route
             path="/*"
             element={
               <>
                 <Navbar />
                 <Routes>
-                  <Route path="/home" element={<Home />} />
-                  <Route path="item/:itemId" element={<ItemDetails />} />
-                  <Route path="checkout" element={<Checkout />} />
-                  <Route path="checkout/success" element={<Confirmation />} />
+                  <Route path="/item/:itemId" element={<ItemDetails />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/checkout/success" element={<Confirmation />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/shipping" element={<ShippingPolicy />} />
@@ -42,7 +51,7 @@ function App() {
               </>
             }
           />
-        </Routes> 
+        </Routes>
       </BrowserRouter>
     </div>
   );
