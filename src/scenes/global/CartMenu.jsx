@@ -45,7 +45,7 @@ const CartMenu = () => {
       };
 
       const response = await fetch(
-        "http://localhost:5000/create-checkout-session",
+        "https://foy-store-backend.onrender.com/create-checkout-session",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
