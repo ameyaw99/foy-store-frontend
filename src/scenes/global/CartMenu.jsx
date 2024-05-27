@@ -16,7 +16,6 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(
   "pk_live_51OxX3fBZ5cGgjLpKzuXLBkxj7FJxSKoIb0iTcSRC6lx93Ql3Gwf4V7qbrtx4mdQDb5px0c4SdVyeu4wHRf9S6LZ100QckihdS0");
 
-
 const FlexBox = styled(Box)`
   display: flex;
   justify-content: space-between;
@@ -28,34 +27,43 @@ const CartMenu = () => {
   const cart = useSelector((state) => state.cart.cart);
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
-  const totalPrice = cart.reduce((total, item) => {
-    return total + item.count * item.price;
-  }, 0);
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.count * item.price,
+    0
+  );
 
   async function makePayment() {
-    const stripe = await stripePromise;
-    const requestBody = {
-      products: cart.map(({ id, count }) => ({
-        id,
-        count,
-      })),
-    };
+    try {
+      const stripe = await stripePromise;
+      const requestBody = {
+        products: cart.map(({ id, count, size, shortDescription }) => ({
+          id,
+          count,
+          size,
+          shortDescription,
+        })),
+      };
 
-    const response = await fetch(
-      "https://foy-store-backend.onrender.com/create-checkout-session",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody),
+      const response = await fetch(
+        "http://localhost:5000/create-checkout-session",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    );
 
-    const sessionData = await response.json();
-    const sessionId = sessionData.sessionId;
+      const sessionData = await response.json();
+      const sessionId = sessionData.sessionId;
 
-    await stripe.redirectToCheckout({
-      sessionId: sessionId,
-    });
+      await stripe.redirectToCheckout({ sessionId });
+    } catch (error) {
+      console.error("Payment error:", error);
+    }
   }
 
   return (
@@ -109,7 +117,7 @@ const CartMenu = () => {
                         <CloseIcon />
                       </IconButton>
                     </FlexBox>
-                    <Typography>
+                    <Typography component="div">
                       <div>{item?.shortDescription}</div>
                       {item.size && <div>Size: {item.size}</div>}
                     </Typography>
